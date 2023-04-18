@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b24arkldna7d3"]
+
+[ext_resource type="Script" path="res://Reusables/Scripts/atk_box.gd" id="1_0j5r8"]
+
+[node name="Atk_Box" type="Area3D"]
+script = ExtResource("1_0j5r8")
