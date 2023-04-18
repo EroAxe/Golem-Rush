@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://cled6hyqrxypq"]
+
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_urjxi"]
+[ext_resource type="Script" path="res://Classes/Stats.gd" id="2_8tsxm"]
+[ext_resource type="PackedScene" uid="uid://b24arkldna7d3" path="res://Reusables/atk_box.tscn" id="3_2f126"]
+
+[sub_resource type="Resource" id="Resource_ev774"]
+script = ExtResource("2_8tsxm")
+hp = 5.0
+max_hp = 5.0
+dmg = 5
+defense = 0.01
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f5thg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x8ah1"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_6wgcd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_un0j7"]
+
+[sub_resource type="Animation" id="Animation_c1k6p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/Atk_Box/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_hnl23"]
+resource_name = "Test_Attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/Atk_Box/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_snth1"]
+_data = {
+"RESET": SubResource("Animation_c1k6p"),
+"Test_Attack": SubResource("Animation_hnl23")
+}
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3853
+script = ExtResource("1_urjxi")
+stats = SubResource("Resource_ev774")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_f5thg")
+
+[node name="Y_Boss" type="Marker3D" parent="."]
+unique_name_in_owner = true
+
+[node name="X_Boss" type="Marker3D" parent="Y_Boss"]
+unique_name_in_owner = true
+
+[node name="Spring" type="SpringArm3D" parent="Y_Boss/X_Boss"]
+unique_name_in_owner = true
+spring_length = 5.0
+
+[node name="Cam" type="Camera3D" parent="Y_Boss/X_Boss/Spring"]
+
+[node name="Root" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Root"]
+mesh = SubResource("CapsuleMesh_x8ah1")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="Mesh2" type="MeshInstance3D" parent="Root"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.5)
+mesh = SubResource("PrismMesh_6wgcd")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="Atk_Box" parent="Root" instance=ExtResource("3_2f126")]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Root/Atk_Box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+shape = SubResource("BoxShape3D_un0j7")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_snth1")
+}
