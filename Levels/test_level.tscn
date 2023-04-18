@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgbpihe0vlfpr"]
+
+[ext_resource type="PackedScene" uid="uid://cled6hyqrxypq" path="res://Player/Player.tscn" id="1_v0r62"]
+[ext_resource type="PackedScene" uid="uid://culdruxshv775" path="res://Enemy/Enemy.tscn" id="2_tm7cn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2r0fh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_3pjp8"]
+sky_material = SubResource("ProceduralSkyMaterial_2r0fh")
+
+[sub_resource type="Environment" id="Environment_wekum"]
+background_mode = 2
+sky = SubResource("Sky_3pjp8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_4myok"]
+vertices = PackedVector3Array(-0.1096, 0.566247, -9.6096, -9.6096, 0.566247, -9.6096, -9.6096, 0.566247, -0.1096, -0.1096, 0.566247, 9.6404, 9.6404, 0.566247, 9.6404, 9.6404, 0.566247, -0.1096, -9.6096, 0.566247, -0.1096, -9.6096, 0.566247, 9.6404, -0.1096, 0.566247, 9.6404, 9.6404, 0.566247, -0.1096, 9.6404, 0.566247, -9.6096, -0.1096, 0.566247, -9.6096)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 5), PackedInt32Array(2, 5, 3), PackedInt32Array(3, 5, 4), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9)]
+agent_height = 4.06
+agent_radius = 1.31
+
+[sub_resource type="BoxMesh" id="BoxMesh_r2wit"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4yti5"]
+size = Vector3(22, 0.373171, 22)
+
+[node name="Test Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wekum")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_v0r62")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18659, 0)
+grav = 20
+jump_spd = 8.0
+rot_spd = 7
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_4myok")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(22.2192, 0, 0, 0, 0.367506, 0, 0, 0, 22.2192, 0, 0, 0)
+mesh = SubResource("BoxMesh_r2wit")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_4yti5")
+
+[node name="Enemy" parent="." instance=ExtResource("2_tm7cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 0)
