@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://culdruxshv775"]
+
+[ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_f0lm3"]
+[ext_resource type="PackedScene" uid="uid://bmo6462htvwwy" path="res://Reusables/hitbox.tscn" id="1_wss3q"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jjo5k"]
+radius = 1.3109
+height = 4.05928
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fiy2g"]
+radius = 1.311
+height = 4.059
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lab3n"]
+radius = 1.2688
+height = 4.04769
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u8pok"]
+radius = 10.8673
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3851
+script = ExtResource("1_f0lm3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CapsuleShape3D_jjo5k")
+
+[node name="Root" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Root"]
+mesh = SubResource("CapsuleMesh_fiy2g")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="Hitbox" parent="." instance=ExtResource("1_wss3q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("CapsuleShape3D_lab3n")
+
+[node name="Agent" type="NavigationAgent3D" parent="."]
+radius = 1.31
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Wake_Up_Area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wake_Up_Area"]
+shape = SubResource("SphereShape3D_u8pok")
+
+[connection signal="hitbox_hit" from="Hitbox" to="." method="entity_hit"]
+[connection signal="body_entered" from="Wake_Up_Area" to="." method="set_target"]
