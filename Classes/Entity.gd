@@ -1,6 +1,7 @@
 extends CharacterBody3D
 class_name Entity
 
+@export var stats : Stats = Stats.new()
 @export var accel := 5
 @export var deaccel := 8
 @export var rot_spd := 5
