@@ -9,12 +9,9 @@ signal blocked()
 @export var dmg := 5
 @export var defense := .01
 
-func take_dmg(atk_area, hit_area):
+func take_dmg(attack, hit_area):
 	
-	var attacker = atk_area.owner
-	var dmg = atk_area.dmg
-	
-	dmg = calc_dmg(dmg, hit_area)
+	dmg = calc_dmg(attack.dmg, hit_area)
 	
 	if dmg <= 0:
 		
@@ -25,7 +22,7 @@ func take_dmg(atk_area, hit_area):
 	
 	if hp <= 0:
 		
-		hp_zero.emit(attacker)
+		hp_zero.emit(attack.sender)
 		
 	
 
