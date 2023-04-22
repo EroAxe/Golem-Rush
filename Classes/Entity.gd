@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Entity
 
 @export var stats : Stats = Stats.new()
+@export var attacks : Array[Attack]
 @export var accel := 5
 @export var deaccel := 8
 @export var rot_spd := 5
@@ -28,4 +29,10 @@ func rotate_mesh_dir(dir, delta):
 	var rot_basis = Basis(cross, Vector3.UP, dir).orthonormalized().get_rotation_quaternion()
 
 	%Root.transform.basis = Basis(%Root.transform.basis.get_rotation_quaternion().slerp(rot_basis, delta * rot_spd))
+func attack(attack, atk_box):
+	
+#	AnimationTree Travel Shenanigans
+	attack.reset_cooldown()
+	attack.sender = self
+	atk_box.attack = attack
 	
