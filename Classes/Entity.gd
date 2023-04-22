@@ -6,6 +6,10 @@ class_name Entity
 @export var accel := 5
 @export var deaccel := 8
 @export var rot_spd := 5
+@export var root : Node3D
+@export var anim_tree : AnimationTree
+
+@onready var anim_playback : AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 
 func _ready():
 	
@@ -28,10 +32,13 @@ func rotate_mesh_dir(dir, delta):
 	var cross = Vector3.UP.cross(dir)
 	var rot_basis = Basis(cross, Vector3.UP, dir).orthonormalized().get_rotation_quaternion()
 
-	%Root.transform.basis = Basis(%Root.transform.basis.get_rotation_quaternion().slerp(rot_basis, delta * rot_spd))
+	root.transform.basis = Basis(root.transform.basis.get_rotation_quaternion().slerp(rot_basis, delta * rot_spd))
+	
+
 func attack(attack, atk_box):
 	
 #	AnimationTree Travel Shenanigans
+	anim_playback.travel(attack.anim)
 	attack.reset_cooldown()
 	attack.sender = self
 	atk_box.attack = attack
