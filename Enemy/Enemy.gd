@@ -19,6 +19,7 @@ func _physics_process(delta):
 	var next_loc = agent.get_next_path_position()
 	var dir = next_loc - global_position
 	dir = dir.normalized() * spd
+	move_toward_target(delta)
 	
 	velocity = dir
 	
@@ -41,7 +42,7 @@ func set_target(tar):
 	
 
 ## Sets the velocity to move toward the target based off the pathfinding positions
-func move_toward_target():
+func move_toward_target(delta):
 	
 	if !target:
 		
@@ -49,7 +50,7 @@ func move_toward_target():
 		
 	
 	agent.target_position = target.global_position
-	print("Target Global", target.global_position)
+#	print("Target Global", target.global_position)
 	
 	if agent.is_navigation_finished():
 		
@@ -60,8 +61,9 @@ func move_toward_target():
 	var dir = (target_pos - global_position).normalized()
 #	prints("Dir", dir, "Target", target_pos)
 	
+	rotate_mesh_dir(-dir, delta)
+	
 	velocity = dir * spd
-#	agent.set_velocity(dir * spd)
 	
 
 ## Function connected to the Agents velocity_computed signal to set the velocity based off of it.
