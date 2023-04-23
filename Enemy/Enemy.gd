@@ -113,7 +113,7 @@ func pathfind_velocity(vel):
 ## Check function to see if the enemy is attacking
 func is_attacking():
 	
-	return $AnimationPlayer.is_playing()
+	return anim_playback.get_current_node() == "Attack"
 	
 
 ## Overrides entity hit to make the player the target if they attack. 
