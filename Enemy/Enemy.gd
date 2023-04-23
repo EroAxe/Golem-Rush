@@ -16,22 +16,63 @@ func _physics_process(delta):
 	if target:
 		agent.target_position = target.global_position
 	
-	var next_loc = agent.get_next_path_position()
-	var dir = next_loc - global_position
-	dir = dir.normalized() * spd
+	tick_cooldowns(delta)
+	
 	move_toward_target(delta)
 	
-	velocity = dir
+	if !is_attacking():
+		
+		start_attack()
+		
 	
-#	prints("Vel", velocity, "Dir", dir, "Next", next_loc)
 	move_and_slide()
 	
 
-## Overrides entity hit to make the player the target if they attack. 
-func entity_hit(atk_area, hit_area):
+func tick_cooldowns(delta):
 	
-	super(atk_area, hit_area)
-	target = atk_area.owner
+	for all in attacks:
+		
+		all.cur_cooldown -= delta
+		
+	
+
+func start_attack():
+	
+	if !target:
+		
+		return
+		
+	
+	var sel_attack = select_attack(target.global_position)
+	if sel_attack == null:
+		
+		return
+		
+	
+	attack(sel_attack, %Atk_Box)
+#	$AnimationPlayer.play(sel_attack.anim)
+	
+
+## Helper function for selecting an attack based off a target.  Returns back the first random attack within range that is off cooldown.
+func select_attack(atk_target):
+	
+	var attack
+	var ready_attacks : Array
+	
+	for all in attacks:
+		
+		if all.in_range(atk_target, global_position) and all.can_attack():
+			ready_attacks.append(all)
+	
+	if ready_attacks.size() == 0:
+		
+		return
+		
+	
+	var rand = randi() % ready_attacks.size()
+	attack = ready_attacks[rand]
+	
+	return attack
 	
 
 ## Helper function to set the target
