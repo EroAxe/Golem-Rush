@@ -2,6 +2,7 @@ extends Resource
 class_name Stats
 
 signal hp_zero()
+signal dmg_taken()
 signal blocked()
 
 @export var hp := 5.0
@@ -19,6 +20,8 @@ func take_dmg(attack, hit_area):
 		
 	
 	hp -= dmg
+	
+	dmg_taken.emit(dmg)
 	
 	if hp <= 0:
 		
