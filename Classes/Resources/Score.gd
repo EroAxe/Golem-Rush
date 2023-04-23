@@ -14,7 +14,7 @@ func calculate_total_score():
 	score += dps/5 * 10
 	score -= time_to_beat
 	
-	return score
+	return max(0, score)
 	
 
 func check_achievements():
