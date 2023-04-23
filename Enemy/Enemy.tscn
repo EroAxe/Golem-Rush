@@ -1,10 +1,19 @@
-[gd_scene load_steps=39 format=3 uid="uid://culdruxshv775"]
+[gd_scene load_steps=36 format=3 uid="uid://culdruxshv775"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_f0lm3"]
 [ext_resource type="PackedScene" uid="uid://bmo6462htvwwy" path="res://Reusables/hitbox.tscn" id="1_wss3q"]
+[ext_resource type="Script" path="res://Classes/Resources/Stats.gd" id="2_bn0ls"]
 [ext_resource type="PackedScene" uid="uid://dgl8tmfrg5w3s" path="res://Assets/GLBs/Ancient Tech Boss.glb" id="2_gj006"]
 [ext_resource type="Script" path="res://Classes/Resources/AI_Attack.gd" id="2_x8ece"]
+[ext_resource type="Material" uid="uid://brchgvqvgfbjb" path="res://Assets/Materials/Enemy.tres" id="4_bcuxx"]
 [ext_resource type="PackedScene" uid="uid://b24arkldna7d3" path="res://Reusables/atk_box.tscn" id="4_hyuwo"]
+
+[sub_resource type="Resource" id="Resource_pvuxe"]
+script = ExtResource("2_bn0ls")
+hp = 60.0
+max_hp = 5.0
+dmg = 5
+defense = 0.01
 
 [sub_resource type="Resource" id="Resource_v0awm"]
 script = ExtResource("2_x8ece")
@@ -13,21 +22,29 @@ dmg = 5
 cooldown = 4.0
 anim = "Slam"
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jjo5k"]
-radius = 1.3109
-height = 4.05928
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c8mnj"]
+height = 1.31711
+radius = 0.812573
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lab3n"]
-radius = 1.2688
-height = 4.04769
+[sub_resource type="SphereShape3D" id="SphereShape3D_4oo3d"]
+radius = 0.933592
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7gu2k"]
-size = Vector3(0.89094, 3.72956, 1.74968)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_obg2s"]
+radius = 0.759602
 
-[sub_resource type="BoxMesh" id="BoxMesh_1hm0t"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_cldga"]
+radius = 1.30753
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqiuf"]
-albedo_color = Color(0, 0.027451, 1, 1)
+[sub_resource type="SphereShape3D" id="SphereShape3D_m006b"]
+radius = 0.742288
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8xvrt"]
+radius = 0.309112
+height = 3.17561
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h1d48"]
+radius = 1.14355
+height = 4.0
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_b56fw"]
 input_0/name = "slam"
@@ -43,95 +60,52 @@ animation = &"Slam"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6f0um"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ckndd"]
-graph_offset = Vector2(-413.2, -149.401)
-nodes/Transition/node = SubResource("AnimationNodeTransition_b56fw")
-nodes/Transition/position = Vector2(80, 120)
+graph_offset = Vector2(-318.318, 175.535)
+nodes/cur_attack/node = SubResource("AnimationNodeTransition_b56fw")
+nodes/cur_attack/position = Vector2(80, 120)
 nodes/slam/node = SubResource("AnimationNodeAnimation_ho4k4")
 nodes/slam/position = Vector2(-160, 120)
 nodes/temp/node = SubResource("AnimationNodeAnimation_6f0um")
 nodes/temp/position = Vector2(-160, 240)
-node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"slam", &"Transition", 1, &"temp"]
+node_connections = [&"output", 0, &"cur_attack", &"cur_attack", 0, &"slam", &"cur_attack", 1, &"temp"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xhli0"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_7tat5"]
-xfade_time = 4.0
-input_0/name = "walk"
-input_0/auto_advance = false
-input_0/reset = true
-input_1/name = "idle"
-input_1/auto_advance = false
-input_1/reset = true
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hupci"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_swf0s"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tjo2o"]
-graph_offset = Vector2(-660, -184)
-nodes/Transition/node = SubResource("AnimationNodeTransition_7tat5")
-nodes/Transition/position = Vector2(-60, 140)
-nodes/idle/node = SubResource("AnimationNodeAnimation_hupci")
-nodes/idle/position = Vector2(-337.076, 285.039)
-nodes/walk/node = SubResource("AnimationNodeAnimation_swf0s")
-nodes/walk/position = Vector2(-340, 140)
-node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"walk", &"Transition", 1, &"idle"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6ppt"]
-animation = &"Slam"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3nqq7"]
 animation = &"Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_74fti"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_28eyc"]
-switch_mode = 2
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_riywl"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2gnwo"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pgqss"]
-
-[sub_resource type="Curve" id="Curve_gjjml"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rv21r"]
-xfade_time = 4.27
-xfade_curve = SubResource("Curve_gjjml")
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qtm3q"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fwwey"]
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uq784"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_raual"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3dxah"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yal40"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iicy8"]
+priority = 2
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5vetv"]
-states/Attacking/node = SubResource("AnimationNodeBlendTree_ckndd")
-states/Attacking/position = Vector2(538, 304)
+states/Attack/node = SubResource("AnimationNodeBlendTree_ckndd")
+states/Attack/position = Vector2(465, 50)
 states/End/position = Vector2(723, 137)
 states/Idle/node = SubResource("AnimationNodeAnimation_xhli0")
-states/Idle/position = Vector2(336, 137)
-states/Movement/node = SubResource("AnimationNodeBlendTree_tjo2o")
-states/Movement/position = Vector2(252, 304)
-states/Slam/node = SubResource("AnimationNodeAnimation_g6ppt")
-states/Slam/position = Vector2(454, 80)
-states/Start/position = Vector2(56, 157)
+states/Idle/position = Vector2(295, 137)
+states/Start/position = Vector2(56, 137)
 states/Walk/node = SubResource("AnimationNodeAnimation_3nqq7")
-states/Walk/position = Vector2(454, 208)
-transitions = ["Idle", "Slam", SubResource("AnimationNodeStateMachineTransition_74fti"), "Slam", "Idle", SubResource("AnimationNodeStateMachineTransition_28eyc"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_riywl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_2gnwo"), "Walk", "Slam", SubResource("AnimationNodeStateMachineTransition_pgqss"), "Slam", "Walk", SubResource("AnimationNodeStateMachineTransition_rv21r"), "Movement", "Attacking", SubResource("AnimationNodeStateMachineTransition_qtm3q"), "Attacking", "Movement", SubResource("AnimationNodeStateMachineTransition_fwwey"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_uq784")]
-graph_offset = Vector2(-150.446, 53)
+states/Walk/position = Vector2(465, 225)
+transitions = ["Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_riywl"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_2gnwo"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_uq784"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_raual"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_3dxah"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_yal40"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_iicy8")]
+graph_offset = Vector2(-215.446, 15.6781)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_7qxcd"]
 
@@ -140,7 +114,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Ancient Tech Boss/Atk_Box/CollisionShape3D:disabled")
+tracks/0/path = NodePath("Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Hand/Atk_Box/CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -156,7 +130,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Ancient Tech Boss/Atk_Box/CollisionShape3D:disabled")
+tracks/0/path = NodePath("Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Hand/Atk_Box/CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -179,51 +153,65 @@ radius = 10.8673
 collision_layer = 4
 collision_mask = 3851
 script = ExtResource("1_f0lm3")
+stats = SubResource("Resource_pvuxe")
 attacks = Array[Resource("res://Classes/Resources/Attack.gd")]([SubResource("Resource_v0awm")])
+rot_spd = 2
 root = NodePath("Ancient Tech Boss")
 anim_tree = NodePath("Ancient Tech Boss/State_tree")
 info_label_spawn = NodePath("Ancient Tech Boss/Dmg_Number_Spawn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_jjo5k")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.840686, 0)
+shape = SubResource("CylinderShape3D_c8mnj")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0236124, 0)
+shape = SubResource("SphereShape3D_4oo3d")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, -1.06354e-08, 2.25625, 0.0452113)
+shape = SubResource("CylinderShape3D_obg2s")
 
 [node name="Ancient Tech Boss" parent="." instance=ExtResource("2_gj006")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.09208, 0)
 
 [node name="Skeleton3D" parent="Ancient Tech Boss/Ancient Tech Rig" index="0"]
-bones/1/rotation = Quaternion(0.731316, -5.14925e-08, -5.52128e-08, 0.682039)
-bones/2/rotation = Quaternion(0.772834, -0.094392, 0.616285, 0.11837)
-bones/5/rotation = Quaternion(0.772834, 0.0943918, -0.616284, 0.11837)
-bones/8/rotation = Quaternion(0.686474, -5.48986e-08, -5.18273e-08, 0.727154)
-bones/9/rotation = Quaternion(0.0415777, 1.19106e-07, -1.32161e-09, 0.999135)
+bones/1/position = Vector3(-0.0182703, 0.0234129, 1.10201)
+bones/6/rotation = Quaternion(0.124605, -0.116228, 0.0146993, 0.985266)
+bones/8/position = Vector3(-0.0182703, -0.0231086, 1.95683)
+bones/11/position = Vector3(-0.00663384, 0.817185, 0.0935672)
 bones/11/rotation = Quaternion(-0.124332, 0.172583, 0.297181, 0.930828)
 bones/12/rotation = Quaternion(0.388892, 0.0370982, -0.0634838, 0.918344)
 bones/13/rotation = Quaternion(0.43919, -0.438436, 0.239444, 0.746695)
 bones/14/rotation = Quaternion(0.125357, -0.461375, -0.0185577, 0.878109)
-bones/15/rotation = Quaternion(-0.0163788, 0.997005, 0.0659734, 0.0368775)
+bones/15/rotation = Quaternion(-0.0163787, 0.997005, 0.0659735, 0.0368775)
 bones/17/rotation = Quaternion(0.0710219, -0.126654, -0.649283, 0.746557)
-bones/18/rotation = Quaternion(-3.38521e-07, 1.92766e-07, -0.588579, 0.80844)
+bones/18/rotation = Quaternion(-3.33913e-07, 1.97374e-07, -0.588579, 0.80844)
 bones/19/rotation = Quaternion(0.103074, -0.126554, -0.63462, 0.755392)
-bones/20/rotation = Quaternion(-9.33547e-08, -5.34534e-08, -0.588579, 0.80844)
+bones/20/rotation = Quaternion(-1.07179e-07, -6.72774e-08, -0.588579, 0.80844)
 bones/21/position = Vector3(0.134261, 0.614021, -0.28346)
 bones/21/rotation = Quaternion(0.0799536, -0.153067, -0.632027, 0.75546)
-bones/22/rotation = Quaternion(2.56967e-07, 2.6962e-08, -0.588579, 0.80844)
-bones/23/rotation = Quaternion(0.102022, 0.874516, 0.00391344, -0.474128)
-bones/24/rotation = Quaternion(6.95563e-08, 2.36885e-07, 0.329621, 0.944113)
+bones/22/rotation = Quaternion(2.59271e-07, 3.8482e-08, -0.588579, 0.80844)
+bones/23/rotation = Quaternion(-0.102022, -0.874516, -0.00391342, 0.474128)
+bones/24/rotation = Quaternion(6.95563e-08, 2.28993e-07, 0.329621, 0.944113)
+bones/27/position = Vector3(0.858453, 0.858084, 0.0118382)
+bones/28/position = Vector3(0.00663383, 0.817184, 0.0935667)
 bones/28/rotation = Quaternion(-0.124331, -0.172583, -0.297181, 0.930828)
 bones/29/rotation = Quaternion(0.388892, -0.0370981, 0.0634839, 0.918344)
 bones/30/rotation = Quaternion(0.43919, 0.438436, -0.239444, 0.746695)
 bones/31/rotation = Quaternion(0.125357, 0.461375, 0.0185576, 0.878109)
-bones/32/rotation = Quaternion(0.0163785, 0.997005, 0.0659736, -0.0368775)
+bones/32/rotation = Quaternion(-0.0163786, -0.997005, -0.0659736, 0.0368775)
+bones/33/position = Vector3(-0.0667509, 1.21358, -0.125505)
+bones/33/rotation = Quaternion(0.0184006, 0.87319, -0.0330666, 0.485908)
 bones/34/rotation = Quaternion(0.0710219, 0.126654, 0.649283, 0.746557)
-bones/35/rotation = Quaternion(-3.8662e-07, -1.87665e-07, 0.588579, 0.80844)
+bones/35/rotation = Quaternion(-3.82012e-07, -1.83057e-07, 0.588579, 0.80844)
 bones/36/rotation = Quaternion(0.103074, 0.126554, 0.63462, 0.755392)
-bones/37/rotation = Quaternion(-1.33832e-07, 5.70844e-08, 0.588579, 0.80844)
+bones/37/rotation = Quaternion(-1.36136e-07, 1.10076e-07, 0.588579, 0.80844)
 bones/38/position = Vector3(-0.134262, 0.614022, -0.28346)
 bones/38/rotation = Quaternion(0.0799535, 0.153067, 0.632027, 0.75546)
-bones/40/rotation = Quaternion(-0.102022, 0.874516, 0.00391325, 0.474128)
-bones/41/rotation = Quaternion(8.43714e-08, -2.22046e-07, -0.329621, 0.944113)
+bones/39/rotation = Quaternion(1.86265e-07, 3.95127e-08, -1.17807e-07, 1)
+bones/40/rotation = Quaternion(-0.102022, 0.874516, 0.00391327, 0.474128)
+bones/41/rotation = Quaternion(8.97969e-08, -1.97632e-07, -0.329621, 0.944113)
 bones/43/position = Vector3(-1.57675, 1.2531, 1.04911)
 bones/43/rotation = Quaternion(0.261023, 0.891905, -0.36139, 0.0759579)
 bones/43/scale = Vector3(1.25669, 1.01482, 1.04538)
@@ -231,41 +219,115 @@ bones/45/position = Vector3(1.57675, 1.2531, 1.04911)
 bones/45/rotation = Quaternion(0.261023, -0.891905, 0.36139, 0.0759579)
 bones/45/scale = Vector3(1.2567, 1.01482, 1.04538)
 
+[node name="Cube019" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_bcuxx")
+
+[node name="Hand" type="BoneAttachment3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D" index="1"]
+transform = Transform3D(-0.404018, -0.575915, -0.710698, -0.447154, -0.55344, 0.702679, -0.798012, 0.601687, -0.0339227, 1.3946, 0.848669, 1.63537)
+bone_name = "Hand.L"
+bone_idx = 16
+
+[node name="Atk_Box" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Hand" instance=ExtResource("4_hyuwo")]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Hand/Atk_Box"]
+transform = Transform3D(1, -8.9407e-08, 6.14673e-08, -1.19209e-07, 1, -4.28408e-08, -2.6077e-08, -2.23517e-08, 1, 0, 0.313195, 2.38419e-07)
+shape = SubResource("SphereShape3D_cldga")
+disabled = true
+
+[node name="Left_Shoulder" type="BoneAttachment3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D" index="2"]
+transform = Transform3D(0.591337, 0.80464, -0.0536151, 0.14696, -0.172896, -0.973915, -0.792921, 0.568032, -0.22049, 1.55737, 3.21938, -0.0231088)
+bone_name = "Upper Shoulder.L"
+bone_idx = 11
+
+[node name="Collider" type="CharacterBody3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Left_Shoulder"]
+transform = Transform3D(1, 1.19209e-07, -5.21541e-08, -1.19209e-07, 1, 1.49012e-08, -6.70552e-08, 2.23517e-08, 1, 0.0750765, -0.000903219, -0.00109529)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Left_Shoulder/Collider"]
+transform = Transform3D(1, 0, 1.22935e-07, -2.38419e-07, 1, -5.21541e-08, 2.71946e-07, 2.79397e-08, 1, -0.0588858, 1.19209e-07, 0.201731)
+shape = SubResource("SphereShape3D_m006b")
+
+[node name="Shoulder_L" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Left_Shoulder" instance=ExtResource("1_wss3q")]
+transform = Transform3D(0.997134, 0.042905, -0.062305, -0.0438533, 0.998941, -0.0139317, 0.0616413, 0.0166241, 0.99796, -0.331079, 0.423588, -0.101921)
+collision_layer = 4
+collision_mask = 2
+weakspot = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Left_Shoulder/Shoulder_L"]
+transform = Transform3D(1, 2.98023e-08, 1.11759e-07, -4.17233e-07, 1, -5.96046e-08, 2.75671e-07, 3.72529e-08, 1, 0.44259, -5.96046e-08, 0.201731)
+shape = SubResource("SphereShape3D_m006b")
+
+[node name="Right_Shoulder" type="BoneAttachment3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D" index="3"]
+transform = Transform3D(0.591337, -0.80464, 0.0536169, -0.146959, -0.172898, -0.973914, 0.792921, 0.568032, -0.22049, -1.55737, 3.21938, -0.0231087)
+bone_name = "Upper Shoulder.R"
+bone_idx = 28
+
+[node name="Shoulder_R" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Right_Shoulder" instance=ExtResource("1_wss3q")]
+transform = Transform3D(1, 2.98023e-08, 7.45059e-09, -2.98023e-08, 1, 0, -7.45058e-09, -2.22045e-16, 1, -0.0538143, 0.440161, 0.0647254)
+collision_layer = 4
+collision_mask = 2
+weakspot = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Right_Shoulder/Shoulder_R"]
+transform = Transform3D(1, 2.98023e-07, -2.83122e-07, -2.98023e-07, 1, -2.98023e-08, 2.83122e-07, 2.98024e-08, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_m006b")
+
+[node name="Collider" type="CharacterBody3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Right_Shoulder"]
+transform = Transform3D(1, 2.98023e-08, 7.45059e-09, -2.98023e-08, 1, -8.88178e-16, -7.45058e-09, 6.66133e-16, 1, -0.0538143, 0.440161, 0.0647254)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Right_Shoulder/Collider"]
+transform = Transform3D(1, 2.38419e-07, -2.71946e-07, -2.38419e-07, 1, -2.79397e-08, 2.71946e-07, 2.79398e-08, 1, -0.0588858, 1.19209e-07, 0.201731)
+shape = SubResource("SphereShape3D_m006b")
+
+[node name="Arm_L" type="BoneAttachment3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D" index="4"]
+transform = Transform3D(-0.27891, -0.355212, -0.892207, -0.315976, -0.843398, 0.434556, -0.906845, 0.403118, 0.122994, 2.34162, 2.07811, 0.433487)
+bone_name = "Arm Joint.L"
+bone_idx = 13
+
+[node name="Collider" type="CharacterBody3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Arm_L"]
+transform = Transform3D(1, 2.98023e-08, 7.45059e-09, -2.98023e-08, 1, -8.88178e-16, -7.45058e-09, 6.66133e-16, 1, -0.0538143, 0.440161, 0.0647254)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Arm_L/Collider"]
+transform = Transform3D(0.9934, -0.0746933, 0.0870456, 0.0995289, 0.93854, -0.330511, -0.0570088, 0.336993, 0.93978, -0.0835012, 0.637243, 0.319987)
+shape = SubResource("CapsuleShape3D_8xvrt")
+
+[node name="Arm_R" type="BoneAttachment3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D" index="5"]
+transform = Transform3D(-0.278911, 0.355213, 0.892206, 0.315975, -0.843397, 0.434557, 0.906845, 0.403118, 0.122994, -2.34162, 2.07811, 0.433487)
+bone_name = "Arm Joint.R"
+bone_idx = 30
+
+[node name="Collider" type="CharacterBody3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Arm_R"]
+transform = Transform3D(1, 2.98023e-08, 7.45059e-09, -2.98023e-08, 1, -8.88178e-16, -7.45058e-09, 6.66133e-16, 1, -0.0538143, 0.440161, 0.0647254)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Arm_R/Collider"]
+transform = Transform3D(0.9934, -0.0746933, 0.0870456, 0.099529, 0.93854, -0.330511, -0.0570088, 0.336993, 0.93978, -0.00199032, 0.645409, 0.315309)
+shape = SubResource("CapsuleShape3D_8xvrt")
+
 [node name="Hitbox" parent="Ancient Tech Boss" instance=ExtResource("1_wss3q")]
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ancient Tech Boss/Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08609, 0)
-shape = SubResource("CapsuleShape3D_lab3n")
-
-[node name="Atk_Box" parent="Ancient Tech Boss" instance=ExtResource("4_hyuwo")]
-unique_name_in_owner = true
-transform = Transform3D(-0.301914, -0.6461, -0.701001, -0.447153, -0.55344, 0.702679, -0.841963, 0.525604, -0.121814, 1.2022, 1.15485, 1.76158)
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ancient Tech Boss/Atk_Box"]
-transform = Transform3D(0.816531, 0.448394, -0.363621, -0.571338, 0.537356, -0.62034, -0.0827626, 0.714277, 0.694952, 0.429031, 0.959758, 0.68067)
-shape = SubResource("BoxShape3D_7gu2k")
-disabled = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ancient Tech Boss/Atk_Box"]
-mesh = SubResource("BoxMesh_1hm0t")
-surface_material_override/0 = SubResource("StandardMaterial3D_pqiuf")
+transform = Transform3D(1, 0, 1.22935e-07, -2.38419e-07, 1, -5.21541e-08, 2.71946e-07, 2.79397e-08, 1, 0, 2, 5.58794e-08)
+shape = SubResource("CapsuleShape3D_h1d48")
 
 [node name="State_tree" type="AnimationTree" parent="Ancient Tech Boss"]
 tree_root = SubResource("AnimationNodeStateMachine_5vetv")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_7qxcd")
-parameters/Attacking/Transition/current_state = ""
-parameters/Attacking/Transition/transition_request = ""
-parameters/Attacking/Transition/current_index = -1
-parameters/Movement/Transition/current_state = ""
-parameters/Movement/Transition/transition_request = "idle"
-parameters/Movement/Transition/current_index = -1
+parameters/Attack/cur_attack/current_state = "slam"
+parameters/Attack/cur_attack/transition_request = "slam"
+parameters/Attack/cur_attack/current_index = 0
 
 [node name="Dmg_Number_Spawn" type="Marker3D" parent="Ancient Tech Boss"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
@@ -288,6 +350,8 @@ shape = SubResource("SphereShape3D_u8pok")
 
 [node name="Atk_Cooldown" type="Timer" parent="."]
 
+[connection signal="hitbox_hit" from="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Left_Shoulder/Shoulder_L" to="." method="entity_hit"]
+[connection signal="hitbox_hit" from="Ancient Tech Boss/Ancient Tech Rig/Skeleton3D/Right_Shoulder/Shoulder_R" to="." method="entity_hit"]
 [connection signal="hitbox_hit" from="Ancient Tech Boss/Hitbox" to="." method="entity_hit"]
 [connection signal="body_entered" from="Wake_Up_Area" to="." method="set_target"]
 
