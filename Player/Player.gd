@@ -21,6 +21,7 @@ func _ready():
 	super()
 	
 	stats.hp_zero.connect(player_died)
+	%Atk_Box.attacked_target.connect(dealt_dmg)
 	
 	%Healthbar.max_value = stats.max_hp
 	
@@ -80,8 +81,21 @@ func _input(event):
 func attack(attack, atk_box):
 	
 	super(attack, atk_box)
+func dealt_dmg(atk_box, target):
 	
-	$AnimationPlayer.play(attack.anim)
+	if !target is Hitbox:
+		
+		return
+	
+	var target_stats : Stats = target.owner.stats
+	
+	var dealt = target_stats.calc_dmg(atk_box.attack.dmg, target)
+	if dealt <= 0:
+		
+		return
+		
+	
+	dmg_dealt += dealt
 	
 
 func show_dmg(dmg):
