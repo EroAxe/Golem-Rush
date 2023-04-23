@@ -3,16 +3,24 @@ extends Area3D
 
 signal attacked_target(body)
 
-@export var dmg := 5.0
+@export var attack : Attack
 
 func _ready():
 	
 	body_entered.connect(attacked)
 	
 
-func ready_attack(dmg):
+#func _process(delta):
+#
+#	if owner is Enemy:
+#
+#		prints(owner.global_position, global_position)
+#
+#
+
+func ready_attack(attack):
 	
-	self.dmg = dmg
+	self.attack = attack
 	
 
 func attacked(body):
