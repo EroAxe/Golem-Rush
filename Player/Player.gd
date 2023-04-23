@@ -69,6 +69,10 @@ func _input(event):
 	if event.is_action("attack"):
 		
 		attack("Test_Attack", 5.0)
+func show_dmg(dmg):
+	super(dmg)
+	
+	dmg_taken += dmg
 		
 	
 
