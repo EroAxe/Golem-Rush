@@ -52,6 +52,7 @@ func start_attack():
 		return
 		
 	
+	velocity = Vector3.ZERO
 	attack(sel_attack, %Atk_Box)
 #	$AnimationPlayer.play(sel_attack.anim)
 	
