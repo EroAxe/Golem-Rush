@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bseho0jl0on44"]
+[gd_scene load_steps=28 format=3 uid="uid://bseho0jl0on44"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_urjxi"]
 [ext_resource type="Script" path="res://Classes/Resources/Stats.gd" id="2_43b1p"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_ev774"]
 script = ExtResource("2_43b1p")
-hp = 5.0
+hp = 30.0
 max_hp = 5.0
 dmg = 5
 defense = 0.01
@@ -71,7 +71,42 @@ _data = {
 "Test_Attack": SubResource("Animation_hnl23")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_34uf6"]
+animation = &"Test_Attack"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_i0bsj"]
+input_0/name = "Test_Attack"
+input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "uppercut"
+input_1/auto_advance = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2a5u0"]
+graph_offset = Vector2(-490, 219)
+nodes/Test/node = SubResource("AnimationNodeAnimation_34uf6")
+nodes/Test/position = Vector2(-200, 160)
+nodes/cur_attack/node = SubResource("AnimationNodeTransition_i0bsj")
+nodes/cur_attack/position = Vector2(80, 160)
+node_connections = [&"output", 0, &"cur_attack", &"cur_attack", 0, &"Test"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dulch"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xx0ba"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_os0mp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pym4r"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_p8ci5"]
+states/Attack/node = SubResource("AnimationNodeBlendTree_2a5u0")
+states/Attack/position = Vector2(635, 92)
+states/Idle/node = SubResource("AnimationNodeBlendTree_dulch")
+states/Idle/position = Vector2(357, 92)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_xx0ba"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_os0mp"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_pym4r")]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xmige"]
 
@@ -140,7 +175,12 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_p8ci5")
+anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_xmige")
+parameters/Attack/cur_attack/current_state = ""
+parameters/Attack/cur_attack/transition_request = "test_attack"
+parameters/Attack/cur_attack/current_index = -1
 
 [node name="HUD" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
