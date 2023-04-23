@@ -22,6 +22,8 @@ func _ready():
 	
 	stats.hp_zero.connect(player_died)
 	
+	%Healthbar.max_value = stats.max_hp
+	
 
 func _physics_process(delta):
 	
@@ -84,7 +86,7 @@ func attack(attack, atk_box):
 
 func show_dmg(dmg):
 	super(dmg)
-	
+	%Healthbar.value -= dmg
 	dmg_taken += dmg
 
 	
