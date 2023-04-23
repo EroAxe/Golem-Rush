@@ -19,12 +19,40 @@ class_name Entity
 func _ready():
 	
 	stats.hp_zero.connect(dead)
+	stats.dmg_taken.connect(show_dmg)
 	
 
 ## Function connected to different [class Hitbox] Nodes throughout the scene to pass along when the Entity is hit
 func entity_hit(atk_area, hit_area):
 	
-	stats.take_dmg(atk_area, hit_area)
+	stats.take_dmg(atk_area.attack, hit_area)
+	
+
+func show_dmg(dmg):
+	
+	# Creates a label and sets it to billboard to the camera
+	var label = Label3D.new()
+	label.billboard = 1
+	label.no_depth_test = true
+	
+	info_label_spawn.add_child(label)
+	label.global_transform = info_label_spawn.global_transform
+	label.top_level = true
+	label.text = str(dmg)
+	label.scale *= 3
+	
+	randomize()
+	info_label_spawn.rotation.x = randf_range(0, 90)
+	info_label_spawn.rotation.z = randf_range(0, 90)
+	
+	var dur = ((label.position.y + label_offset) - label.position.y) * .2
+	
+	var tween = create_tween()
+	tween.tween_method(label.translate_object_local, Vector3.ZERO, Vector3(0, (label.position.y - label_offset)*.04, 0), dur)
+#	tween.tween_callback(label.translate_object_local.bind(Vector3(0, label_offset, 0)))
+#	tween.tween_property(label, "position:y", label.position.y + label_offset, dur)
+	tween.parallel().tween_property(label, "modulate:a", 0, dur)
+	tween.tween_callback(label.queue_free)
 	
 
 func dead(attacker):
