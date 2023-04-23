@@ -13,6 +13,7 @@ func calculate_total_score():
 	
 	score += dps/5 * 10
 	score -= time_to_beat
+	score -= damage_taken * .6
 	
 	return max(0, score)
 	
