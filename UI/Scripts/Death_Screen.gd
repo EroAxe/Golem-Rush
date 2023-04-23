@@ -1,11 +1,20 @@
 extends MarginContainer
 
 
-func setup_screen(time, dmg_taken, avg_dps):
+func setup_screen(time, dmg_taken, dps, alive):
 	
+	if !alive:
+		
+		%Time.visible = false
+		
 	%Time_To_Beat.text = str("%02d:%02d:%06.3f" % [time.hour, time.min, time.sec])
 	%Damage_Taken.text = str(dmg_taken)
-	%Average_DPS.text = str(avg_dps)
+	%DPS.text = str(dps)
+	
+	var last_score = ScoreList.add_score(time.sec, dmg_taken, dps)
+	
+	%Last_Score.text = str(last_score.calculate_total_score() * 100).pad_decimals(0)
+	%Highscore.text = str(ScoreList.get_highscore())
 	
 
 func _ready():
