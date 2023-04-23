@@ -1,13 +1,18 @@
 extends CharacterBody3D
 class_name Entity
 
+@export_group("Data")
 @export var stats : Stats = Stats.new()
 @export var attacks : Array[Attack]
+@export_group("Movement Values")
 @export var accel := 5
 @export var deaccel := 8
 @export var rot_spd := 5
+@export_group("Extra")
+@export var label_offset := 4
 @export var root : Node3D
 @export var anim_tree : AnimationTree
+@export var info_label_spawn : Node3D
 
 @onready var anim_playback : AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 
