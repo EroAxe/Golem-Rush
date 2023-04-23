@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdnpay0h6nqej"]
+
+[ext_resource type="PackedScene" uid="uid://dgl8tmfrg5w3s" path="res://Assets/GLBs/Ancient Tech Boss.glb" id="1_mbe14"]
+[ext_resource type="Script" path="res://UI/Scripts/Menu_Panel.gd" id="1_uo1yq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c5hvw"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_bwrru"]
+sky_material = SubResource("ProceduralSkyMaterial_c5hvw")
+
+[sub_resource type="Environment" id="Environment_iy3qf"]
+background_mode = 2
+sky = SubResource("Sky_bwrru")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqbdi"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.239216)
+corner_radius_top_left = 5
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_10ha5"]
+color = Color(0, 0, 0, 0.568627)
+grow_begin = -20.0
+grow_end = -20.0
+thickness = 10
+vertical = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_rskmn"]
+
+[node name="Boot_Screen" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iy3qf")
+
+[node name="Menu_Panel" type="PanelContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -250.0
+offset_right = 331.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dqbdi")
+script = ExtResource("1_uo1yq")
+fight_level = "res://Levels/test_level.tscn"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Menu_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+
+[node name="Panel" type="Panel" parent="Menu_Panel/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_10ha5")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu_Panel/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_Panel/MarginContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Fight" type="Button" parent="Menu_Panel/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Fight!"
+
+[node name="Credits" type="Button" parent="Menu_Panel/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Menu_Panel/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Quit"
+
+[node name="Credits_Panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 13.0
+offset_right = -942.0
+offset_bottom = -274.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Credits_Panel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Credits_Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits_Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -2.13352, 2, 5.50329)
+
+[node name="Ancient Tech Boss" parent="." instance=ExtResource("1_mbe14")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(15.35, 0, 0, 0, 1, 0, 0, 0, 7.675, 0, -0.5, -3.07)
+mesh = SubResource("BoxMesh_rskmn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(15.35, 0, 0, 0, 1, 0, 0, 0, 7.675, 0, -1.5, 4.605)
+mesh = SubResource("BoxMesh_rskmn")
