@@ -1,15 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://cled6hyqrxypq"]
+[gd_scene load_steps=21 format=3 uid="uid://bseho0jl0on44"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_urjxi"]
-[ext_resource type="Script" path="res://Classes/Stats.gd" id="2_8tsxm"]
+[ext_resource type="Script" path="res://Classes/Resources/Stats.gd" id="2_43b1p"]
 [ext_resource type="PackedScene" uid="uid://b24arkldna7d3" path="res://Reusables/atk_box.tscn" id="3_2f126"]
+[ext_resource type="Script" path="res://Classes/Resources/Attack.gd" id="3_s1g0e"]
+[ext_resource type="PackedScene" uid="uid://bmo6462htvwwy" path="res://Reusables/hitbox.tscn" id="5_dw54a"]
+[ext_resource type="PackedScene" uid="uid://dppq7sae3bbq3" path="res://UI/timer_panel.tscn" id="6_4jbel"]
+[ext_resource type="Texture2D" uid="uid://o4dpsd3rj1u7" path="res://icon.svg" id="6_5x7j7"]
+[ext_resource type="PackedScene" uid="uid://bpnyhk72kjnai" path="res://UI/attacks_menu.tscn" id="7_lwmih"]
 
 [sub_resource type="Resource" id="Resource_ev774"]
-script = ExtResource("2_8tsxm")
+script = ExtResource("2_43b1p")
 hp = 5.0
 max_hp = 5.0
 dmg = 5
 defense = 0.01
+
+[sub_resource type="Resource" id="Resource_lq2rb"]
+script = ExtResource("3_s1g0e")
+dmg = 5
+cooldown = 3.0
+anim = "Test_Attack"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f5thg"]
 
@@ -18,6 +29,10 @@ defense = 0.01
 [sub_resource type="PrismMesh" id="PrismMesh_6wgcd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_un0j7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3mv1"]
+radius = 0.409745
+height = 1.84253
 
 [sub_resource type="Animation" id="Animation_c1k6p"]
 length = 0.001
@@ -56,11 +71,20 @@ _data = {
 "Test_Attack": SubResource("Animation_hnl23")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_p8ci5"]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xmige"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("root", "anim_tree", "info_label_spawn")]
 collision_layer = 2
 collision_mask = 3853
 script = ExtResource("1_urjxi")
 stats = SubResource("Resource_ev774")
+attacks = Array[ExtResource("3_s1g0e")]([SubResource("Resource_lq2rb")])
+label_offset = 2
+root = NodePath("Root")
+anim_tree = NodePath("AnimationTree")
+info_label_spawn = NodePath("Root/Info_Label_Spawn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_f5thg")
@@ -99,7 +123,67 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 shape = SubResource("BoxShape3D_un0j7")
 disabled = true
 
+[node name="Hitbox" parent="Root" instance=ExtResource("5_dw54a")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Root/Hitbox"]
+shape = SubResource("CapsuleShape3D_m3mv1")
+
+[node name="Info_Label_Spawn" type="Marker3D" parent="Root"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74, 0)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_snth1")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_p8ci5")
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_xmige")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Timer_Panel" parent="HUD" instance=ExtResource("6_4jbel")]
+unique_name_in_owner = true
+
+[node name="Stat_Bars" type="MarginContainer" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -496.0
+offset_top = -80.0
+offset_right = -14.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Healthbar" type="TextureProgressBar" parent="HUD/Stat_Bars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 21.651)
+layout_mode = 2
+size_flags_vertical = 0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("6_5x7j7")
+texture_progress = ExtResource("6_5x7j7")
+tint_under = Color(0.705882, 0, 0.0392157, 1)
+tint_progress = Color(0, 1, 0.176471, 1)
+
+[node name="Manabar" type="TextureProgressBar" parent="HUD/Stat_Bars"]
+visible = false
+custom_minimum_size = Vector2(0, 21.651)
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("6_5x7j7")
+texture_progress = ExtResource("6_5x7j7")
+tint_under = Color(0.0862745, 0.133333, 0.164706, 1)
+tint_progress = Color(0, 0.827451, 1, 1)
+
+[node name="Attacks_Menu" parent="HUD" instance=ExtResource("7_lwmih")]
+
+[connection signal="hitbox_hit" from="Root/Hitbox" to="." method="entity_hit"]

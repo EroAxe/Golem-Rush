@@ -74,16 +74,33 @@ func _input(event):
 	
 	if event.is_action("attack"):
 		
-		attack("Test_Attack", 5.0)
+		attack(attacks[0], %Atk_Box)
+		
+	
+
+func attack(attack, atk_box):
+	
+	super(attack, atk_box)
+	
+	$AnimationPlayer.play(attack.anim)
+	
+
 func show_dmg(dmg):
 	super(dmg)
 	
 	dmg_taken += dmg
-		
+
 	
 
-func attack(anim, dmg):
+## Function called when the Player dies, with the attacker that killed them.
+func player_died(attacker):
 	
-	%Atk_Box.dmg = dmg
-	$AnimationPlayer.play(anim)
+	var time = %Timer_Panel.get_time()
+	var dps = dmg_dealt / time.sec
+	
+	var stats_inst = stats_screen.instantiate()
+	
+	stats_inst.setup_screen(time, dmg_taken, dps)
+	
+	add_child(stats_inst)
 	
