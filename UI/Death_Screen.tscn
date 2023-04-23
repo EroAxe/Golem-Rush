@@ -1,0 +1,179 @@
+[gd_scene load_steps=4 format=3 uid="uid://dux06dxsjk7vj"]
+
+[ext_resource type="Script" path="res://UI/Scripts/Death_Screen.gd" id="1_du81n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktv5q"]
+bg_color = Color(0.15, 0.15, 0.15, 0.454902)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_a8fsb"]
+grow_begin = -71.0
+grow_end = -77.0
+thickness = 8
+vertical = true
+
+[node name="Death_Screen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 60
+script = ExtResource("1_du81n")
+
+[node name="Main_Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ktv5q")
+
+[node name="Window_Margin" type="MarginContainer" parent="Main_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Horizontal_Split" type="HSplitContainer" parent="Main_Panel/Window_Margin"]
+layout_mode = 2
+split_offset = -616
+dragger_visibility = 1
+
+[node name="Score_Panel" type="PanelContainer" parent="Main_Panel/Window_Margin/Horizontal_Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxLine_a8fsb")
+
+[node name="MarginContainer" type="MarginContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="Time" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Time"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Time to Beat:"
+
+[node name="Time_To_Beat" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Time"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+
+[node name="Damage_Taken" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Damage_Taken"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Damage Taken:"
+
+[node name="Damage_Taken" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Damage_Taken"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+
+[node name="Average_DPS" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Average_DPS"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Highest DPS:"
+
+[node name="Average_DPS" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Average_DPS"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+
+[node name="Button_VBox" type="VBoxContainer" parent="Main_Panel/Window_Margin/Horizontal_Split"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="Score_Comparison" type="VBoxContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/separation = 14
+
+[node name="Important_Scores2" type="HBoxContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 23
+
+[node name="Highest_Panel" type="PanelContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Highest_Container" type="VBoxContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2/Highest_Panel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2/Highest_Panel/Highest_Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Highscore: "
+
+[node name="Highscore" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2/Highest_Panel/Highest_Container"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85.839, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "20"
+horizontal_alignment = 1
+
+[node name="Last_Panel" type="PanelContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2"]
+layout_mode = 2
+
+[node name="Recent_Container" type="VBoxContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2/Last_Panel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2/Last_Panel/Recent_Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Last Score:"
+
+[node name="Last_Score" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison/Important_Scores2/Last_Panel/Recent_Container"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85.839, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+text = "10"
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Score_Comparison"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "Restart Fight
+"
+
+[node name="Bottom_Buttons" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/h_separation = 22
+
+[node name="Menu" type="Button" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Bottom_Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "Back to Menu"
+
+[node name="Scores" type="Button" parent="Main_Panel/Window_Margin/Horizontal_Split/Button_VBox/Bottom_Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "Past Scores"
