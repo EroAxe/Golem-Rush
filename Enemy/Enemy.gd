@@ -93,15 +93,20 @@ func move_toward_target(delta):
 		
 	
 	agent.target_position = target.global_position
-	if agent.is_navigation_finished():
 		
-		return
 	
 	var target_pos = agent.get_next_path_position()
 	
 	var dir = (target_pos - global_position).normalized()
 	
 	rotate_mesh_dir(-dir, delta)
+	
+	if agent.is_target_reached() or global_position.distance_to(target.global_position) < 2:
+		
+		anim_playback.travel("Idle")
+		return
+	
+	anim_playback.travel("Walk")
 	
 	velocity = dir * spd
 	
