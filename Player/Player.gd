@@ -17,6 +17,12 @@ var last_dir : Vector3
 var dmg_taken : float
 var dmg_dealt : float
 
+func _ready():
+	super()
+	
+	stats.hp_zero.connect(player_died)
+	
+
 func _physics_process(delta):
 	
 	var input = Input.get_vector("left", "right", "up", "down")
