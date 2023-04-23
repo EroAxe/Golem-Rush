@@ -71,8 +71,8 @@ func rotate_mesh_dir(dir, delta):
 
 func attack(attack, atk_box):
 	
-#	AnimationTree Travel Shenanigans
-	anim_playback.travel(attack.anim)
+	anim_playback.travel("Attack")
+	anim_tree["parameters/Attack/cur_attack/transition_request"] = attack.anim
 	attack.reset_cooldown()
 	attack.sender = self
 	atk_box.attack = attack
