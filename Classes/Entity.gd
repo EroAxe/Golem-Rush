@@ -20,6 +20,7 @@ func _ready():
 	
 	stats.hp_zero.connect(dead)
 	stats.dmg_taken.connect(show_dmg)
+	anim_tree.active = true
 	
 
 ## Function connected to different [class Hitbox] Nodes throughout the scene to pass along when the Entity is hit
