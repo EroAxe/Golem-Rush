@@ -52,13 +52,10 @@ func _physics_process(delta):
 		
 		if velocity.y > 0:
 			cur_grav = jump_grav
-#			print("mid jump")
 		else:
 			cur_grav = grav
-#			print("falling")
 		
 		velocity.y -= cur_grav * delta
-#		prints(velocity.y, cur_grav)
 	
 	move_and_slide()
 

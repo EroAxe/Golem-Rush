@@ -14,7 +14,6 @@ func _physics_process(delta):
 	
 	cur_time += delta
 	var time = get_time()
-#	prints(cur_time, time.sec, snapped(float(time.sec), 0.001))
 	
 	%Cur_Time.text = str("%02d:%02d:%06.3f" % [time.hour, time.min, time.sec])
 	
@@ -24,7 +23,6 @@ func get_time():
 	var time : Dictionary = {"sec" : 0.0, "min" : 0, "hour" : 0}
 	
 	time.sec = cur_time 
-#	print(floor(time.sec / 60))
 	
 	if time.sec >= 60:
 		time.min = time.sec / 60

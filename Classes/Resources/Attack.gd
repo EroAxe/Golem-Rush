@@ -13,9 +13,7 @@ func tick_cooldown(new_val):
 	
 	if cur_cooldown <= 0:
 		
-		print("Cooldown over")
 		cur_cooldown = 0
-		
 	
 
 func reset_cooldown():

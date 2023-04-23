@@ -91,8 +91,6 @@ func move_toward_target(delta):
 		
 	
 	agent.target_position = target.global_position
-#	print("Target Global", target.global_position)
-	
 	if agent.is_navigation_finished():
 		
 		return
@@ -100,7 +98,6 @@ func move_toward_target(delta):
 	var target_pos = agent.get_next_path_position()
 	
 	var dir = (target_pos - global_position).normalized()
-#	prints("Dir", dir, "Target", target_pos)
 	
 	rotate_mesh_dir(-dir, delta)
 	

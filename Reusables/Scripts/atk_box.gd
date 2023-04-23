@@ -10,13 +10,6 @@ func _ready():
 	body_entered.connect(attacked)
 	
 
-#func _process(delta):
-#
-#	if owner is Enemy:
-#
-#		prints(owner.global_position, global_position)
-#
-#
 
 func ready_attack(attack):
 	
