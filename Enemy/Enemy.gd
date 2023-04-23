@@ -18,6 +18,8 @@ func _physics_process(delta):
 	
 	tick_cooldowns(delta)
 	
+	if !is_attacking():
+		
 	move_toward_target(delta)
 	
 	if !is_attacking():
