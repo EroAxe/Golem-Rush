@@ -25,5 +25,5 @@ func ready_attack(attack):
 
 func attacked(body):
 	
-	attacked_target.emit(body)
+	attacked_target.emit(self)
 	
