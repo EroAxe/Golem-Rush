@@ -7,9 +7,8 @@ signal attacked_target(body)
 
 func _ready():
 	
-	body_entered.connect(attacked)
+	area_entered.connect(attacked)
 	
-
 
 func ready_attack(attack):
 	
@@ -18,5 +17,5 @@ func ready_attack(attack):
 
 func attacked(body):
 	
-	attacked_target.emit(self)
+	attacked_target.emit(self, body)
 	
