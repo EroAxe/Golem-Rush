@@ -19,7 +19,7 @@ func calculate_total_score():
 
 func check_achievements():
 	
-	var achieve_bonus
+	var achieve_bonus = 0
 	
 	if damage_taken <= 0:
 		
