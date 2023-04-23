@@ -3,6 +3,7 @@ class_name Enemy
 
 @onready var agent = $Agent
 @export var spd := 5.0
+@export var player : Node3D
 
 var target : Node3D
 
@@ -128,4 +129,9 @@ func entity_hit(atk_area, hit_area):
 	
 	super(atk_area, hit_area)
 	target = atk_area.owner
+	
+
+func dead(attacker):
+	
+	player.open_stats_screen()
 	
