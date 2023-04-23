@@ -102,5 +102,5 @@ func player_died(attacker):
 	
 	stats_inst.setup_screen(time, dmg_taken, dps)
 	
-	add_child(stats_inst)
+	%HUD.add_child(stats_inst)
 	

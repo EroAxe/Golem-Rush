@@ -143,6 +143,7 @@ tree_root = SubResource("AnimationNodeStateMachine_p8ci5")
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_xmige")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [node name="Timer_Panel" parent="HUD" instance=ExtResource("6_4jbel")]
 unique_name_in_owner = true
