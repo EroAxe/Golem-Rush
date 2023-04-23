@@ -15,6 +15,9 @@ background_mode = 2
 sky = SubResource("Sky_3pjp8")
 tonemap_mode = 2
 glow_enabled = true
+glow_normalized = true
+glow_intensity = 2.11
+glow_bloom = 0.06
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4myok"]
 vertices = PackedVector3Array(-0.1096, 0.566247, -9.6096, -9.6096, 0.566247, -9.6096, -9.6096, 0.566247, -0.1096, -0.1096, 0.566247, 9.6404, 9.6404, 0.566247, 9.6404, 9.6404, 0.566247, -0.1096, -9.6096, 0.566247, -0.1096, -9.6096, 0.566247, 9.6404, -0.1096, 0.566247, 9.6404, 9.6404, 0.566247, -0.1096, 9.6404, 0.566247, -9.6096, -0.1096, 0.566247, -9.6096)
@@ -34,6 +37,8 @@ environment = SubResource("Environment_wekum")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
+light_energy = 0.2
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_v0r62")]
@@ -55,5 +60,6 @@ skeleton = NodePath("../CollisionShape3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_4yti5")
 
-[node name="Enemy" parent="." instance=ExtResource("2_tm7cn")]
+[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_tm7cn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 0)
+player = NodePath("../Player")
