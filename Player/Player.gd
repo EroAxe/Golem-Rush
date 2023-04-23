@@ -9,8 +9,13 @@ extends Entity
 @export_group("Settings")
 @export var mouse_sens := .01
 
+var stats_screen := preload("res://UI/Death_Screen.tscn")
+
 var cur_grav
 var last_dir : Vector3
+
+var dmg_taken : float
+var dmg_dealt : float
 
 func _physics_process(delta):
 	
