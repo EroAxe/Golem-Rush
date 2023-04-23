@@ -6,9 +6,6 @@ func _ready():
 	
 	%Cur_Time.text = str(cur_time).pad_decimals(3)
 	
-	cur_time = 600
-	print(Time.get_time_dict_from_unix_time(cur_time))
-	
 
 func _physics_process(delta):
 	

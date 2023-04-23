@@ -21,8 +21,8 @@ func _physics_process(delta):
 	
 	if !is_attacking():
 		
-	move_toward_target(delta)
-	
+		move_toward_target(delta)
+		
 	if !is_attacking():
 		
 		start_attack()
@@ -95,7 +95,7 @@ func move_toward_target(delta):
 		
 	
 	agent.target_position = target.global_position
-		
+	
 	
 	var target_pos = agent.get_next_path_position()
 	
