@@ -58,6 +58,7 @@ layout_mode = 2
 theme_override_constants/separation = 13
 
 [node name="Time" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Time"]
@@ -83,15 +84,15 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 
-[node name="Average_DPS" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer"]
+[node name="DPS" type="HFlowContainer" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Average_DPS"]
+[node name="Label" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/DPS"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Highest DPS:"
+text = "DPS:"
 
-[node name="Average_DPS" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/Average_DPS"]
+[node name="DPS" type="Label" parent="Main_Panel/Window_Margin/Horizontal_Split/Score_Panel/MarginContainer/VBoxContainer/DPS"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
