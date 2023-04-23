@@ -77,3 +77,10 @@ func is_attacking():
 	
 	return $AnimationPlayer.is_playing()
 	
+
+## Overrides entity hit to make the player the target if they attack. 
+func entity_hit(atk_area, hit_area):
+	
+	super(atk_area, hit_area)
+	target = atk_area.owner
+	
