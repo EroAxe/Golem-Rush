@@ -20,11 +20,13 @@ func _ready():
 func restart_fight():
 	
 	get_tree().reload_current_scene()
+	get_tree().paused = false
 	
 
 func return_to_menu():
 	
 	get_tree().change_scene_to_file("Menu")
+	get_tree().paused = false
 	
 
 func display_scores():
