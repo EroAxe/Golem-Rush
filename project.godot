@@ -11,12 +11,18 @@ config_version=5
 [application]
 
 config/name="Godot Wild Jam 56"
+run/main_scene="res://UI/boot_screen.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 ScoreList="*res://Classes/Autoloads/Score_List.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [input]
 
